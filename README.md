@@ -17,6 +17,7 @@ The app was deployed to [https://perx-react-randal.azurewebsites.net/](https://p
 7. Linting with TSLint and Prettier
 8. CI/CD Pipeline
 9. Deployment of app to a Docker container in Azure
+10. Responsive Design
 
 # How to Run the project
 
