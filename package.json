@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.2",
+    "cross-env": "^6.0.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1",

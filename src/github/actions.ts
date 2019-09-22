@@ -59,7 +59,7 @@ export interface GetUserOrganizationsFailureAction {
     type: typeof GET_USER_ORGANIZATIONS_FAILURE;
     payload: Error;
 }
-export type ApplicationAction =
+export type GithubActions =
     | SetGithubUsernameAction
     | GetUserInfoRequestAction
     | GetUserInfoSuccessAction

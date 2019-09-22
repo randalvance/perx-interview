@@ -10,7 +10,7 @@ import {
     GET_USER_REPOSITORIES_SUCCESS,
     SET_GITHUB_USERNAME,
 } from './action-types';
-import { ApplicationAction, GetUserRepositoriesSuccessAction } from './actions';
+import { GithubActions, GetUserRepositoriesSuccessAction } from './actions';
 import { UserInfo, UserOrganization, UserRepository } from './types';
 
 export interface GithubState {
@@ -24,7 +24,7 @@ export interface GithubState {
     hasApiError: boolean;
 }
 
-const initialState: GithubState = {
+export const initialState: GithubState = {
     username: '',
     userInfo: null,
     userRepositories: [],
@@ -37,7 +37,7 @@ const initialState: GithubState = {
 
 export const githubReducer = (
     state: GithubState = initialState,
-    action: ApplicationAction
+    action: GithubActions
 ): GithubState => {
     switch (action.type) {
         case SET_GITHUB_USERNAME:
@@ -76,7 +76,7 @@ export const githubReducer = (
         case GET_USER_REPOSITORIES_FAILURE:
             return {
                 ...state,
-                userRepositoriesLoading: true,
+                userRepositoriesLoading: false,
                 hasApiError: true,
             };
         case GET_USER_ORGANIZATIONS_REQUEST:

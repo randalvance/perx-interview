@@ -11,6 +11,11 @@ steps:
       displayName: 'Install Node.js'
     - script: |
           npm install
+      displayName: 'NPM Install'
+    - script: |
+          npm run test-ci
+      displayName: 'Run Tests'
+    - script: |
           npm run build
       displayName: 'Build App'
     - task: Docker@2
