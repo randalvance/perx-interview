@@ -1,15 +1,25 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Button } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { ApplicationState } from '../application/reducers';
 import {
     getUserInfo,
     getUserOrganizations,
     getUserRepositories,
 } from '../github/actions';
-import { UserInfo, UserRepository, UserOrganization } from '../github/types';
+import { UserInfo, UserOrganization, UserRepository } from '../github/types';
 
 type State = ApplicationState;
+
+const useStyles = makeStyles(theme => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
 
 const HomePage: React.FC<{}> = () => {
     const userInfoLoading = useSelector<State, boolean>(
@@ -34,13 +44,18 @@ const HomePage: React.FC<{}> = () => {
         },
         [dispatch, getUserInfo]
     );
+    const classes = useStyles();
 
     return (
-        <div>
+        <Grid direction="column" justify="center">
             <h1>{userInfoLoading ? 'User is loading...' : 'Not Loading'}</h1>
-            <button type="button" onClick={handleClick}>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+            >
                 Get User Information
-            </button>
+            </Button>
             <h1>User</h1>
             <p>User is {userInfo ? userInfo.login : 'None'}</p>
             <p>
@@ -51,7 +66,7 @@ const HomePage: React.FC<{}> = () => {
                 User Organization Count:{' '}
                 {userOrganizations ? userOrganizations.length : 0}
             </p>
-        </div>
+        </Grid>
     );
 };
 
