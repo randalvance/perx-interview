@@ -24,6 +24,9 @@ export const getUserRepositories = async (
         throw new Error('User was not specified!');
     }
 
+    // Create artificial delay to demo loading state
+    await new Promise(resolve => setTimeout(() => resolve(), 2000));
+
     const response = await axiosInstance.get(
         `https://api.github.com/users/${login}/repos`
     );
@@ -36,6 +39,9 @@ export const getUserOrganizations = async (
     if (!login) {
         throw new Error('User was not specified!');
     }
+
+    // Create artificial delay to demo loading state
+    await new Promise(resolve => setTimeout(() => resolve(), 3000));
 
     const response = await axiosInstance.get(
         `https://api.github.com/users/${login}/orgs`

@@ -8,8 +8,14 @@ import {
     GET_USER_REPOSITORIES_FAILURE,
     GET_USER_REPOSITORIES_REQUEST,
     GET_USER_REPOSITORIES_SUCCESS,
+    SET_GITHUB_USERNAME,
 } from './action-types';
 import { UserInfo, UserOrganization, UserRepository } from './types';
+
+export interface SetGithubUsernameAction {
+    type: typeof SET_GITHUB_USERNAME;
+    payload: string;
+}
 
 export interface GetUserInfoRequestAction {
     type: typeof GET_USER_INFO_REQUEST;
@@ -54,6 +60,7 @@ export interface GetUserOrganizationsFailureAction {
     payload: Error;
 }
 export type ApplicationAction =
+    | SetGithubUsernameAction
     | GetUserInfoRequestAction
     | GetUserInfoSuccessAction
     | GetUserInfoFailureAction
@@ -64,27 +71,26 @@ export type ApplicationAction =
     | GetUserOrganizationsFailureAction
     | GetUserOrganizationsRequestAction;
 
-export function getUserInfo(login: string): GetUserInfoRequestAction {
-    return {
-        type: GET_USER_INFO_REQUEST,
-        payload: login,
-    };
-}
+export const setGithubUsername = (login: string): SetGithubUsernameAction => ({
+    type: SET_GITHUB_USERNAME,
+    payload: login,
+});
 
-export function getUserRepositories(
-    login: string
-): GetUserRepositoriesRequestAction {
-    return {
-        type: GET_USER_REPOSITORIES_REQUEST,
-        payload: login,
-    };
-}
+export const getUserInfo = (login: string): GetUserInfoRequestAction => ({
+    type: GET_USER_INFO_REQUEST,
+    payload: login,
+});
 
-export function getUserOrganizations(
+export const getUserRepositories = (
     login: string
-): GetUserOrganizationsRequestAction {
-    return {
-        type: GET_USER_ORGANIZATIONS_REQUEST,
-        payload: login,
-    };
-}
+): GetUserRepositoriesRequestAction => ({
+    type: GET_USER_REPOSITORIES_REQUEST,
+    payload: login,
+});
+
+export const getUserOrganizations = (
+    login: string
+): GetUserOrganizationsRequestAction => ({
+    type: GET_USER_ORGANIZATIONS_REQUEST,
+    payload: login,
+});

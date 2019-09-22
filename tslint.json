@@ -9,6 +9,8 @@
     "jsRules": {},
     "rules": {
         "object-literal-sort-keys": false,
-        "interface-name": false
+        "interface-name": false,
+        "jsx-boolean-value": false,
+        "jsx-no-lambda": false
     }
 }
