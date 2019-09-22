@@ -2,20 +2,34 @@ import {
     GET_USER_INFO_FAILURE,
     GET_USER_INFO_REQUEST,
     GET_USER_INFO_SUCCESS,
+    GET_USER_ORGANIZATIONS_FAILURE,
+    GET_USER_ORGANIZATIONS_REQUEST,
+    GET_USER_ORGANIZATIONS_SUCCESS,
+    GET_USER_REPOSITORIES_FAILURE,
+    GET_USER_REPOSITORIES_REQUEST,
+    GET_USER_REPOSITORIES_SUCCESS,
 } from './action-types';
-import { ApplicationAction } from './actions';
-import { UserInfo } from './types';
+import { ApplicationAction, GetUserRepositoriesSuccessAction } from './actions';
+import { UserInfo, UserOrganization, UserRepository } from './types';
 
 export interface GithubState {
-    userInfoLoading: boolean;
-    hasApiError: boolean;
     userInfo: UserInfo | null;
+    userRepositories: UserRepository[];
+    userOrganizations: UserOrganization[];
+    userInfoLoading: boolean;
+    userRepositoriesLoading: boolean;
+    userOrganizationsLoading: boolean;
+    hasApiError: boolean;
 }
 
 const initialState: GithubState = {
+    userInfo: null,
+    userRepositories: [],
+    userOrganizations: [],
+    userRepositoriesLoading: false,
+    userOrganizationsLoading: false,
     userInfoLoading: false,
     hasApiError: false,
-    userInfo: null,
 };
 
 export const githubReducer = (
@@ -38,6 +52,40 @@ export const githubReducer = (
             return {
                 ...state,
                 userInfoLoading: true,
+                hasApiError: true,
+            };
+        case GET_USER_REPOSITORIES_REQUEST:
+            return {
+                ...state,
+                userRepositoriesLoading: true,
+            };
+        case GET_USER_REPOSITORIES_SUCCESS:
+            return {
+                ...state,
+                userRepositoriesLoading: false,
+                userRepositories: action.payload,
+            };
+        case GET_USER_REPOSITORIES_FAILURE:
+            return {
+                ...state,
+                userRepositoriesLoading: true,
+                hasApiError: true,
+            };
+        case GET_USER_ORGANIZATIONS_REQUEST:
+            return {
+                ...state,
+                userOrganizationsLoading: true,
+            };
+        case GET_USER_ORGANIZATIONS_SUCCESS:
+            return {
+                ...state,
+                userOrganizationsLoading: false,
+                userOrganizations: action.payload,
+            };
+        case GET_USER_ORGANIZATIONS_FAILURE:
+            return {
+                ...state,
+                userOrganizationsLoading: false,
                 hasApiError: true,
             };
         default:
