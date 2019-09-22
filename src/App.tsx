@@ -1,23 +1,25 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import { githubReducer } from './github/reducer';
+import applicationReducers from './application/reducers';
+import applicationSagas from './application/sagas';
+
+import HomePage from './pages/HomePage';
 
 import './App.css';
-import logo from './logo.svg';
 
-const store = createStore(
-    combineReducers({
-        github: githubReducer,
-    })
-);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(applicationReducers, applyMiddleware(sagaMiddleware));
 
-const App: React.FC = () => {
+sagaMiddleware.run(applicationSagas);
+
+const App: React.FC<{}> = () => {
     return (
         <Provider store={store}>
             <div className="App">
-                <h1>Hello World!</h1>
+                <HomePage />
             </div>
         </Provider>
     );

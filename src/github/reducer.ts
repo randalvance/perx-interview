@@ -1,18 +1,45 @@
 import {
-    ApplicationAction,
-    ApplicationState,
-    GET_REPOSITORIES_REQUEST,
-} from './types';
+    GET_USER_INFO_FAILURE,
+    GET_USER_INFO_REQUEST,
+    GET_USER_INFO_SUCCESS,
+} from './action-types';
+import { ApplicationAction } from './actions';
+import { UserInfo } from './types';
 
-const initialState: ApplicationState = {};
+export interface GithubState {
+    userInfoLoading: boolean;
+    hasApiError: boolean;
+    userInfo: UserInfo | null;
+}
+
+const initialState: GithubState = {
+    userInfoLoading: false,
+    hasApiError: false,
+    userInfo: null,
+};
 
 export const githubReducer = (
-    state: ApplicationState = initialState,
+    state: GithubState = initialState,
     action: ApplicationAction
-): ApplicationState => {
+): GithubState => {
     switch (action.type) {
-        case GET_REPOSITORIES_REQUEST:
-            return {};
+        case GET_USER_INFO_REQUEST:
+            return {
+                ...state,
+                userInfoLoading: true,
+            };
+        case GET_USER_INFO_SUCCESS:
+            return {
+                ...state,
+                userInfoLoading: false,
+                userInfo: action.payload,
+            };
+        case GET_USER_INFO_FAILURE:
+            return {
+                ...state,
+                userInfoLoading: true,
+                hasApiError: true,
+            };
         default:
             return state;
     }
