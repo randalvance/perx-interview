@@ -9,7 +9,7 @@ import applicationSagas from './application/sagas';
 import MainWrapper from './application/components/MainWrapper';
 import HomePage from './pages/HomePage';
 
-import './App.scss';
+import './App.css';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(applicationReducers, applyMiddleware(sagaMiddleware));

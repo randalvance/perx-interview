@@ -5,14 +5,13 @@ import { isEmpty } from 'lodash';
 import { Button, Grid, makeStyles, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-    button: {
+    root: {
         marginTop: theme.spacing(2),
+    },
+    button: {
         height: 50,
     },
-    usernameInput: {
-        marginTop: theme.spacing(2),
-        marginRight: theme.spacing(2),
-    },
+    usernameInput: {},
 }));
 
 const SearchForm: React.FC<{
@@ -24,6 +23,7 @@ const SearchForm: React.FC<{
     const classes = useStyles();
     return (
         <Grid
+            className={classes.root}
             item
             container
             direction="row"
